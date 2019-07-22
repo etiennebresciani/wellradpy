@@ -15,7 +15,7 @@ Q = 30
 rw = 0.15
 sc = 0.05
 alpha = 0.01
-alpha_confidence_level = 0.5
+alpha_conf = 0.5
 delta = 0.4
 
 ###############################################################################
@@ -69,7 +69,7 @@ rinv_absdrawdderivdiff_lin = dr.rinv_absdrawdderivdiff_lin(t, T, S, Q, delta, sc
 rinv_absdrawdderivdiff_log = dr.rinv_absdrawdderivdiff_log(t, T, S, Q, rw, delta, sc)
 
 # Based on relative drawdown derivative difference criterion (analysis in log scale)
-rinv_reldrawdderivdiff_log = dr.rinv_reldrawdderivdiff_log(t, T, S, alpha_confidence_level)
+rinv_reldrawdderivdiff_log = dr.rinv_reldrawdderivdiff_log(t, T, S, alpha_conf)
 
 # Based on semi-empirical start of constant-head boundary effect
 rinv_consthead = dr.rinv_consthead(t, T, S)

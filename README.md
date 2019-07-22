@@ -22,7 +22,7 @@ WellRadPy depends on the Python package NumPy, which will be automatically insta
 
 ## Authors
 
-* **Etienne Bresciani** ([ebrescia](https://github.com/ebrescia))
+* **Etienne Bresciani** ([ebrescia](https://github.com/etiennebresciani))
 
 ## License
 
