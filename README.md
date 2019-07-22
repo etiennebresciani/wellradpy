@@ -16,13 +16,13 @@ The folder ``/examples`` contains a script where all the functions are exemplifi
 
 ## Installation
 
-BLABLA.
+TO COME.
 
-WellRadPy depends on the Python package NumPy, which will be automatically installed if you choose to [REFER TO ABOVE].
+WellRadPy depends on the Python packages NumPy and SciPy (>= 1.2.0), which will be automatically installed if you choose to [REFER TO ABOVE].
 
 ## Authors
 
-* **Etienne Bresciani** ([ebrescia](https://github.com/etiennebresciani))
+* **Etienne Bresciani** ([etiennebresciani](https://github.com/etiennebresciani))
 
 ## License
 
