@@ -9,7 +9,7 @@
 --> python setup.py sdist bdist_wheel
 
 # 4. Upload on PyPI repository
---> python -m twine upload dist/*
+--> python -m twine upload dist/*VERSION*
 
 # 5. Optionally, create a new release, and also optionally, issue a DOI
 # Note : details at https://guides.github.com/activities/citable-code/
