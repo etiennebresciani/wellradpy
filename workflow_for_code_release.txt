@@ -1,0 +1,12 @@
+# Details at https://packaging.python.org/tutorials/packaging-projects/
+
+# 1. Increment version number in setup.py
+
+# 2. Get the latest versions of setuptools and wheel
+--> python -m pip install --user --upgrade setuptools wheel
+
+# 3. Generate distribution
+--> python setup.py sdist bdist_wheel
+
+# 4. Upload on PyPI repository
+--> python -m twine upload dist/*

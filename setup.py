@@ -1,11 +1,18 @@
+# -*- coding: utf-8 -*-
+"""
+Created on 2019/07/23
+
+@author: Etienne Bresciani
+"""
+
 import setuptools
 
-with open("README.md", "r") as fh:
+with open("README.md", "r", encoding="ISO-8859-1") as fh:
     long_description = fh.read()
 
 setuptools.setup(
     name="wellradpy",
-    version="1.0.0",
+    version="0.0.1",
     author="Etienne Bresciani",
     description="A small Python package to calculate the radius of influence and radius of investigation of wells.",
     long_description=long_description,
