@@ -1,4 +1,4 @@
-# Details at https://packaging.python.org/tutorials/packaging-projects/
+# Note: details at https://packaging.python.org/tutorials/packaging-projects/
 
 # 1. Increment version number in setup.py
 
@@ -10,3 +10,9 @@
 
 # 4. Upload on PyPI repository
 --> python -m twine upload dist/*
+
+# 5. Optionally, create a new release, and also optionally, issue a DOI
+# Note : details at https://guides.github.com/activities/citable-code/
+--> Create a new release on GitHub (https://github.com/etiennebresciani/wellradpy/releases/).
+--> Note this will trigger Zenodo (web site for creating DOI) into archiving the repository.
+--> To issue a DOI, go to https://zenodo.org/, click 'Upload', and follow the instructions.

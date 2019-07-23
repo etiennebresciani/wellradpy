@@ -4,7 +4,7 @@ WellRadPy (Well Radius Python) is a small Python package for calculating the rad
 
 There are various ways by which radius of influence and radius of investigation may be precisely defined. Accordingly, a large number of methods have been proposed for estimating radius of influence and radius of investigation. This package implements most existing methods.
 
-The calculations rely on major simplifying assumptions. Specifically: 2D (horizontal) confined flow, infinite domain, homogeneous hydraulic properties, single-porosity media, and fully-penetrating well. Also, only single-phase Newtonian fluids that flow according to Darcy?™s law are considered.
+The calculations rely on major simplifying assumptions. Specifically: 2D (horizontal) confined flow, infinite domain, homogeneous hydraulic properties, single-porosity media, and fully-penetrating well. Also, only single-phase Newtonian fluids that flow according to Darcy\'s law are considered.
 
 A paper will (hopefully) soon be published with all the details.
 
@@ -12,7 +12,9 @@ A paper will (hopefully) soon be published with all the details.
 
 WellRadPy is simple and its use is straightforward. There are just as many functions as there are ways to precisely define radius of influence and radius of investigation.
 
-The folder ``/examples`` contains a script where all the functions are exemplified.
+The ``/examples`` directory in the [GitHub repository](https://github.com/etiennebresciani/wellradpy) contains a script where all the functions are exemplified.
+
+You can also ``help(whatever_function)`` in the Python console.
 
 ## Installation
 

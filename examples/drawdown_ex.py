@@ -7,16 +7,19 @@ Created on 2019/06/26
 
 from wellradpy import drawdown as dr
 
+###############################################################################
 # Parameters (not all needed, depending on the method)
-t = 1
-T = 10
-S = 1e-4
-Q = 30
-rw = 0.15
-sc = 0.05
-alpha = 0.01
-alpha_conf = 0.5
-delta = 0.4
+###############################################################################
+
+t = 1 # Time from beginning of pumping
+T = 10 # Transmissivity
+S = 1e-4 # Storativity
+Q = 30 # Pumping rate
+rw = 0.15 # Well radius
+sc = 0.05 # Absolute drawdown threshold criterion
+alpha = 0.01 # Relative threshold criterion
+alpha_conf = 0.5 # Confidence level criterion
+delta = 0.4 # Window size in derivative calculation
 
 ###############################################################################
 # Radius of influence

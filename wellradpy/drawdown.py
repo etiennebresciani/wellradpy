@@ -14,7 +14,7 @@ from .tools import E1, E1inv, Xinv, Yinv, Zinv
 
 def rinfl_absdrawd(t, T, S, Q, sc=0.05):
     """
-    Calculate radius of influence during pumping based on an absolute drawdown criterion.
+    Calculate radius of influence during drawdown based on an absolute drawdown criterion.
 
     Parameters
     ----------
@@ -31,8 +31,7 @@ def rinfl_absdrawd(t, T, S, Q, sc=0.05):
     
     Returns
     -------
-    rinfl: float
-        Radius of influence.
+    Radius of influence.
     
     Notes
     -----
@@ -45,7 +44,7 @@ def rinfl_absdrawd(t, T, S, Q, sc=0.05):
 
 def rinfl_reldrawd(t, T, S, rw, alpha=0.01):
     """
-    Calculate radius of influence during pumping based on an relative drawdown criterion.
+    Calculate radius of influence during drawdown based on an relative drawdown criterion.
 
     Parameters
     ----------
@@ -62,8 +61,7 @@ def rinfl_reldrawd(t, T, S, rw, alpha=0.01):
     
     Returns
     -------
-    rinfl: float
-        Radius of influence.
+    Radius of influence.
     
     Notes
     -----
@@ -76,7 +74,7 @@ def rinfl_reldrawd(t, T, S, rw, alpha=0.01):
 
 def rinfl_relflow(t, T, S, alpha=0.01):
     """
-    Calculate radius of influence during pumping based on an relative flow rate criterion.
+    Calculate radius of influence during drawdown based on an relative flow rate criterion.
 
     Parameters
     ----------
@@ -91,8 +89,7 @@ def rinfl_relflow(t, T, S, alpha=0.01):
     
     Returns
     -------
-    rinfl: float
-        Radius of influence.
+    Radius of influence.
     
     Notes
     -----
@@ -105,7 +102,7 @@ def rinfl_relflow(t, T, S, alpha=0.01):
 
 def rinfl_relvol(t, T, S, alpha=0.01):
     """
-    Calculate radius of influence during pumping based on an relative volume criterion.
+    Calculate radius of influence during drawdown based on an relative volume criterion.
 
     Parameters
     ----------
@@ -120,8 +117,7 @@ def rinfl_relvol(t, T, S, alpha=0.01):
     
     Returns
     -------
-    rinfl: float
-        Radius of influence.
+    Radius of influence.
     
     Notes
     -----
@@ -134,7 +130,7 @@ def rinfl_relvol(t, T, S, alpha=0.01):
 
 def rinfl_quasisteady(t, T, S):
     """
-    Calculate radius of influence based on quasi-steady state model.
+    Calculate radius of influence during drawdown based on quasi-steady state model.
     
     Parameters
     ----------
@@ -147,8 +143,7 @@ def rinfl_quasisteady(t, T, S):
     
     Returns
     -------
-    rinfl: float
-        Radius of influence.
+    Radius of influence.
     
     Notes
     -----
@@ -161,7 +156,7 @@ def rinfl_quasisteady(t, T, S):
 
 def rinfl_jones(t, T, S):
     """
-    Calculate radius of influence based on Jones'formula.
+    Calculate radius of influence during drawdown based on Jones'formula.
     
     Parameters
     ----------
@@ -174,8 +169,7 @@ def rinfl_jones(t, T, S):
     
     Returns
     -------
-    rinfl: float
-        Radius of influence.
+    Radius of influence.
     
     Notes
     -----
@@ -188,7 +182,7 @@ def rinfl_jones(t, T, S):
 
 def rinfl_closedres(t, T, S):
     """
-    Calculate radius of influence based on extension of closed reservoir regime.
+    Calculate radius of influence during drawdown based on extension of closed reservoir regime.
     
     Parameters
     ----------
@@ -201,8 +195,7 @@ def rinfl_closedres(t, T, S):
     
     Returns
     -------
-    rinfl: float
-        Radius of influence.
+    Radius of influence.
     
     Notes
     -----
@@ -215,7 +208,7 @@ def rinfl_closedres(t, T, S):
 
 def rinfl_impulse(t, T, S):
     """
-    Calculate radius of influence based on impulse response peak.
+    Calculate radius of influence during drawdown based on impulse response peak.
     
     Parameters
     ----------
@@ -228,8 +221,7 @@ def rinfl_impulse(t, T, S):
     
     Returns
     -------
-    rinfl: float
-        Radius of influence.
+    Radius of influence.
     
     Notes
     -----
@@ -242,7 +234,7 @@ def rinfl_impulse(t, T, S):
 
 def rinfl_log(t, T, S):
     """
-    Calculate radius of influence based on extension of logarithmic regime.
+    Calculate radius of influence during drawdown based on extension of logarithmic regime.
     
     Parameters
     ----------
@@ -255,8 +247,7 @@ def rinfl_log(t, T, S):
     
     Returns
     -------
-    rinfl: float
-        Radius of influence.
+    Radius of influence.
     
     Notes
     -----
@@ -269,7 +260,7 @@ def rinfl_log(t, T, S):
 
 def rinfl_dim(t, T, S):
     """
-    Calculate radius of influence based on dimensional analysis.
+    Calculate radius of influence during drawdown based on dimensional analysis.
     
     Parameters
     ----------
@@ -282,8 +273,7 @@ def rinfl_dim(t, T, S):
     
     Returns
     -------
-    rinfl: float
-        Radius of influence.
+    Radius of influence.
     
     Notes
     -----
@@ -300,7 +290,7 @@ def rinfl_dim(t, T, S):
 
 def rinv_absdrawddiff_lin(t, T, S, Q, sc=0.05):
     """
-    Calculate radius of investigation based on absolute drawdown difference criterion when data are analyzed in lin scale.
+    Calculate radius of investigation during drawdown based on absolute drawdown difference criterion when data are analyzed in lin scale.
     
     Parameters
     ----------
@@ -317,8 +307,7 @@ def rinv_absdrawddiff_lin(t, T, S, Q, sc=0.05):
     
     Returns
     -------
-    rinfl: float
-        Radius of investigation.
+    Radius of investigation.
     
     Notes
     -----
@@ -331,7 +320,7 @@ def rinv_absdrawddiff_lin(t, T, S, Q, sc=0.05):
 
 def rinv_absdrawddiff_log(t, T, S, Q, rw, sc=0.05):
     """
-    Calculate radius of investigation based on absolute drawdown difference criterion when data are analyzed in log scale.
+    Calculate radius of investigation during drawdown based on absolute drawdown difference criterion when data are analyzed in log scale.
     
     Parameters
     ----------
@@ -348,8 +337,7 @@ def rinv_absdrawddiff_log(t, T, S, Q, rw, sc=0.05):
     
     Returns
     -------
-    rinfl: float
-        Radius of investigation.
+    Radius of investigation.
     
     Notes
     -----
@@ -363,7 +351,7 @@ def rinv_absdrawddiff_log(t, T, S, Q, rw, sc=0.05):
 
 def rinv_absdrawdderivdiff_lin(t, T, S, Q, delta, sc=0.05):
     """
-    Calculate radius of investigation based on absolute drawdown derivative difference criterion when data are analyzed in lin scale.
+    Calculate radius of investigation during drawdown based on absolute drawdown derivative difference criterion when data are analyzed in lin scale.
     
     Parameters
     ----------
@@ -382,8 +370,7 @@ def rinv_absdrawdderivdiff_lin(t, T, S, Q, delta, sc=0.05):
     
     Returns
     -------
-    rinfl: float
-        Radius of investigation.
+    Radius of investigation.
     
     Notes
     -----
@@ -396,7 +383,7 @@ def rinv_absdrawdderivdiff_lin(t, T, S, Q, delta, sc=0.05):
 
 def rinv_absdrawdderivdiff_log(t, T, S, Q, rw, delta, sc=0.05):
     """
-    Calculate radius of investigation based on absolute drawdown derivative difference criterion when data are analyzed in log scale.
+    Calculate radius of investigation during drawdown based on absolute drawdown derivative difference criterion when data are analyzed in log scale.
     
     Parameters
     ----------
@@ -415,8 +402,7 @@ def rinv_absdrawdderivdiff_log(t, T, S, Q, rw, delta, sc=0.05):
     
     Returns
     -------
-    rinfl: float
-        Radius of investigation.
+    Radius of investigation.
     
     Notes
     -----
@@ -430,7 +416,7 @@ def rinv_absdrawdderivdiff_log(t, T, S, Q, rw, delta, sc=0.05):
 
 def rinv_reldrawdderivdiff_log(t, T, S, alpha=0.5):
     """
-    Calculate radius of investigation based on relative drawdown derivative difference criterion when data are analyzed in log scale.
+    Calculate radius of investigation during drawdown based on relative drawdown derivative difference criterion when data are analyzed in log scale.
     
     Parameters
     ----------
@@ -445,8 +431,7 @@ def rinv_reldrawdderivdiff_log(t, T, S, alpha=0.5):
     
     Returns
     -------
-    rinfl: float
-        Radius of investigation.
+    Radius of investigation.
     
     Notes
     -----
@@ -459,7 +444,7 @@ def rinv_reldrawdderivdiff_log(t, T, S, alpha=0.5):
 
 def rinv_consthead(t, T, S):
     """
-    Calculate radius of investigation based on semi-empirical start of constant-head boundary effect.
+    Calculate radius of investigation during drawdown based on semi-empirical start of constant-head boundary effect.
     
     Parameters
     ----------
@@ -472,8 +457,7 @@ def rinv_consthead(t, T, S):
     
     Returns
     -------
-    rinfl: float
-        Radius of investigation.
+    Radius of investigation.
     
     Notes
     -----
@@ -486,7 +470,7 @@ def rinv_consthead(t, T, S):
 
 def rinv_closedres(t, T, S):
     """
-    Calculate radius of investigation based on intersection of unbounded and closed boundary regimes.
+    Calculate radius of investigation during drawdown based on intersection of unbounded and closed boundary regimes.
     
     Parameters
     ----------
@@ -499,8 +483,7 @@ def rinv_closedres(t, T, S):
     
     Returns
     -------
-    rinfl: float
-        Radius of investigation.
+    Radius of investigation.
     
     Notes
     -----
@@ -513,7 +496,7 @@ def rinv_closedres(t, T, S):
 
 def rinv_linearbarr(t, T, S):
     """
-    Calculate radius of investigation based on intersection of unbounded and linear barrier regimes.
+    Calculate radius of investigation during drawdown based on intersection of unbounded and linear barrier regimes.
     
     Parameters
     ----------
@@ -526,8 +509,7 @@ def rinv_linearbarr(t, T, S):
     
     Returns
     -------
-    rinfl: float
-        Radius of investigation.
+    Radius of investigation.
     
     Notes
     -----
@@ -540,7 +522,7 @@ def rinv_linearbarr(t, T, S):
 
 def rinv_impulse(t, T, S):
     """
-    Calculate radius of investigation based on impulse response difference peak.
+    Calculate radius of investigation during drawdown based on impulse response difference peak.
     
     Parameters
     ----------
@@ -553,8 +535,7 @@ def rinv_impulse(t, T, S):
     
     Returns
     -------
-    rinfl: float
-        Radius of investigation.
+    Radius of investigation.
     
     Notes
     -----
