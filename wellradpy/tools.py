@@ -8,10 +8,12 @@ Created on 2019/06/26
 import numpy as np # version 1.16.2
 import scipy.special as spe # version 1.2.1
 import scipy.optimize as opt # version 1.2.1
+import scipy.integrate as integrate # version 1.2.1
+import mpmath as mp
 
 def E1(u):
     """
-    Wrapper of exponential integral function.
+    Exponential integral function.
 
     Parameters
     ----------
@@ -24,7 +26,7 @@ def E1(u):
     
     Notes
     -----
-    The purpose of this function is only to improve code readability.
+    This is simply a wrapper to improve code readability.
     
     """
     
@@ -52,9 +54,9 @@ def E1inv(x):
     sol = opt.root_scalar(func_root_E1, args=x, method='bisect', bracket=(1e-12, 1e2), rtol=1e-5)
     return sol.root
 
-def X(u):
+def F(u):
     """
-    X function defined by X(u) = exp(-u) - u*E1(u).
+    F function defined by F(u) = exp(-u) - u*E1(u).
 
     Parameters
     ----------
@@ -63,18 +65,18 @@ def X(u):
     
     Returns
     -------
-    X(u).
+    F(u).
     
     """
     
     return np.exp(-u) - u*E1(u)
 
-def func_root_X(u, x):
-    return X(u) - x
+def func_root_F(u, x):
+    return F(u) - x
 
-def Xinv(x):
+def Finv(x):
     """
-    Inverse X function.
+    Inverse F function.
 
     Parameters
     ----------
@@ -83,80 +85,67 @@ def Xinv(x):
     
     Returns
     -------
-    Xinv(x).
+    Finv(x).
     
     """
     
     # Note: Another method (e.g. Newton) could be more efficient, but bisection is simple and robust, and we expect that efficiency will not be an issue in practice
-    sol = opt.root_scalar(func_root_X, args=x, method='bisect', bracket=(1e-12, 1e2), rtol=1e-5)
+    sol = opt.root_scalar(func_root_F, args=x, method='bisect', bracket=(1e-12, 1e2), rtol=1e-5)
     return sol.root
 
-def Y(u, uw):
+def w_aux(u):
+    res = np.exp(-2*u) * mp.whitw(0.5, 0.5, 4*u)
+    return float(res)
+
+def w(u):
     """
-    Y function defined by Y(u,uw) = (E1(uw)+E1(u)) * log((E1(uw)+E1(u))/E1(uw)).
+    Weighting function that measures the contribution of transmissivity variations to drawdown.
 
     Parameters
     ----------
     u: float
         Any positive real number.
-    uw: float
-        Any positive real number.
     
     Returns
     -------
-    Y(u,uw).
+    w(u).
     
     """
     
-    return (E1(uw)+E1(u)) * np.log((E1(uw)+E1(u))/E1(uw))
+    [aux_integral, aux_integral_err] = integrate.quad(w_aux, u, np.inf, epsrel=1e-5)
+    return np.sqrt(np.pi) / u * aux_integral
 
-def func_root_Y(u, x, uw):
-    return Y(u, uw) - x
-
-def Yinv(x, uw):
+def G(u, uw):
     """
-    Inverse Y function.
-
-    Parameters
-    ----------
-    x: float
-        Any positive real number.
-    
-    Returns
-    -------
-    Yinv(x).
-    
-    """
-    
-    # Note: Another method (e.g. Newton) could be more efficient, but bisection is simple and robust, and we expect that efficiency will not be an issue in practice
-    sol = opt.root_scalar(func_root_Y, args=(x, uw), method='bisect', bracket=(1e-12, 1e2), rtol=1e-5)
-    return sol.root
-
-def Z(u, uw):
-    """
-    Z function defined by Z(u,uw) = (exp(-uw)+exp(-u)) * np.log((exp(-uw)+exp(-u))/exp(-uw)).
+    G function defined by G(u, uw) = int_u^inf(w)/int_uw^inf(w).
 
     Parameters
     ----------
     u: float
         Any positive real number.
-    uw: float
-        Any positive real number.
     
     Returns
     -------
-    Z(u,uw).
+    G(u, uw).
     
     """
     
-    return (np.exp(-uw)+np.exp(-u)) * np.log((np.exp(-uw)+np.exp(-u))/np.exp(-uw))
+    effective_inf = 10 # use this value instead of np.inf otherwise the integration results appear to be wrong; this value is safe for a realistic range of values of u (typically u < 5, while w decreases extremely fast beyond that)
+    [cumul_tail, err_tail] = integrate.quad(w, u, effective_inf, epsrel=1e-5)
+    if uw==1e-2:
+        cumul_all = 1.520 # pre-calculated to speed up this particular case
+    elif uw==1e-16:
+        cumul_all = 17.632 # pre-calculated to speed up this particular case
+    else:
+        [cumul_all, err_all] = integrate.quad(w, uw, effective_inf, epsrel=1e-5)
+    return cumul_tail/cumul_all
 
-def func_root_Z(u, x, uw):
-    return Z(u,uw) - x
+def func_root_G(u, x, uw):
+    return G(u, uw) - x
 
-def Zinv(x, uw):
+def Ginv(x, uw):
     """
-    Inverse Z function.
+    Inverse G function for a fixed uw.
 
     Parameters
     ----------
@@ -165,10 +154,80 @@ def Zinv(x, uw):
     
     Returns
     -------
-    Zinv(x).
+    Ginv(x).
     
     """
     
+    # Set up bounds
+    if uw==0:
+        b1 = 1e-16
+    else:
+        b1 = 1.00001 * uw
+    b2 = 1e1
     # Note: Another method (e.g. Newton) could be more efficient, but bisection is simple and robust, and we expect that efficiency will not be an issue in practice
-    sol = opt.root_scalar(func_root_Z, args=(x, uw), method='bisect', bracket=(1e-12, 1e2), rtol=1e-5)
+    sol = opt.root_scalar(func_root_G, args=(x, uw), method='bisect', bracket=(b1, b2), rtol=1e-5)
+    return sol.root
+
+def wprime(u):
+    """
+    Weighting function that measures the contribution of transmissivity variations to drawdown derivative.
+
+    Parameters
+    ----------
+    u: float
+        Any positive real number.
+    
+    Returns
+    -------
+    wprime(u).
+    
+    """
+    
+    res = np.sqrt(np.pi) * np.exp(-2*u) * mp.whitw(0.5,0.5,4*u)
+    return float(res)
+
+def H(u, uw):
+    """
+    H function defined by H(u, uw) = int_u^inf(wprime)/int_uw^inf(wprime).
+
+    Parameters
+    ----------
+    u: float
+        Any positive real number.
+    
+    Returns
+    -------
+    H(u, uw).
+    
+    """
+    [cumul_tail, err_tail] = integrate.quad(wprime, u, np.inf, epsrel=1e-5)
+    [cumul_all, err_all] = integrate.quad(wprime, uw, np.inf, epsrel=1e-5)
+    return cumul_tail/cumul_all
+
+def func_root_H(u, x, uw):
+    return H(u, uw) - x
+
+def Hinv(x, uw):
+    """
+    Inverse H function for a fixed uw.
+
+    Parameters
+    ----------
+    x: float
+        Any positive real number.
+    
+    Returns
+    -------
+    Hinv(x).
+    
+    """
+    
+    # Set up bounds
+    if uw==0:
+        b1 = 1e-16
+    else:
+        b1 = 1.00001 * uw
+    b2 = 1e1
+    # Note: Another method (e.g. Newton) could be more efficient, but bisection is simple and robust, and we expect that efficiency will not be an issue in practice
+    sol = opt.root_scalar(func_root_H, args=(x, uw), method='bisect', bracket=(b1, b2), rtol=1e-5)
     return sol.root

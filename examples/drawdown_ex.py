@@ -8,7 +8,7 @@ Created on 2019/06/26
 from wellradpy import drawdown as dr
 
 ###############################################################################
-# Parameters (not all needed, depending on the method)
+# Parameters (not all always needed, depending on the definition)
 ###############################################################################
 
 t = 1 # Time from beginning of pumping
@@ -25,16 +25,16 @@ delta = 0.4 # Window size in derivative calculation
 # Radius of influence
 ###############################################################################
 
-# Based on absolute drawdown criterion
-rinfl_absdrawd = dr.rinfl_absdrawd(t, T, S, Q, sc)
+# Based on an absolute drawdown criterion
+rinfl_absdraw = dr.rinfl_absdraw(t, T, S, Q, sc)
 
-# Based on relative drawdown criterion
-rinfl_reldrawd = dr.rinfl_reldrawd(t, T, S, rw, alpha)
+# Based on a relative drawdown criterion
+rinfl_reldraw = dr.rinfl_reldraw(t, T, S, rw, alpha)
 
-# Based on relative flow rate criterion
+# Based on a relative flow rate criterion
 rinfl_relflow = dr.rinfl_relflow(t, T, S, alpha)
 
-# Based on relative volume criterion
+# Based on a relative volume criterion
 rinfl_relvol = dr.rinfl_relvol(t, T, S, alpha)
 
 # Based on quasi-steady state model
@@ -52,27 +52,33 @@ rinfl_impulse = dr.rinfl_impulse(t, T, S)
 # Based on extension of logarithmic regime
 rinfl_log = dr.rinfl_log(t, T, S)
 
-# Based on dimensional analysis
-rinfl_dim = dr.rinfl_dim(t, T, S)
-
 ###############################################################################
 # Radius of investigation
 ###############################################################################
 
-# Based on absolute drawdown difference criterion (analysis in lin scale)
-rinv_absdrawddiff_lin = dr.rinv_absdrawddiff_lin(t, T, S, Q, sc)
+# Based on an absolute drawdown difference criterion
+rinv_absdrawdiff = dr.rinv_absdrawdiff(t, T, S, Q, sc)
 
-# Based on absolute drawdown difference criterion (analysis in log scale)
-rinv_absdrawddiff_log = dr.rinv_absdrawddiff_log(t, T, S, Q, rw, sc)
+# Based on an absolute drawdown derivative difference criterion
+rinv_absdrawderivdiff = dr.rinv_absdrawderivdiff(t, T, S, Q, delta, sc)
 
-# Based on absolute drawdown derivative difference criterion (analysis in lin scale)
-rinv_absdrawdderivdiff_lin = dr.rinv_absdrawdderivdiff_lin(t, T, S, Q, delta, sc)
+# Based on a relative drawdown difference criterion
+rinv_reldrawdiff = dr.rinv_reldrawdiff(t, T, S, rw, alpha)
 
-# Based on absolute drawdown derivative difference criterion (analysis in log scale)
-rinv_absdrawdderivdiff_log = dr.rinv_absdrawdderivdiff_log(t, T, S, Q, rw, delta, sc)
+# Based on a relative drawdown derivative difference criterion
+rinv_reldrawderivdiff = dr.rinv_reldrawderivdiff(t, T, S, rw, alpha)
 
-# Based on relative drawdown derivative difference criterion (analysis in log scale)
-rinv_reldrawdderivdiff_log = dr.rinv_reldrawdderivdiff_log(t, T, S, alpha_conf)
+# Based on a relative drawdown averaging criterion (RUNTIME ~HOURS)
+#rinv_reldrawave = dr.rinv_reldrawave(t, T, S, rw, alpha)
+
+# Based on a relative drawdown derivative averaging criterion (RUNTIME ~SECONDS)
+#rinv_reldrawderivave = dr.rinv_reldrawderivave(t, T, S, rw, alpha)
+
+# Based on a proportion of linear barrier regime (linear scale analysis)
+rinv_propbarrierregime_lin = dr.rinv_propbarrierregime_lin(t, T, S, alpha_conf)
+
+# Based on a proportion of linear barrier regime (logarithmic scale analysis)
+rinv_propbarrierregime_log = dr.rinv_propbarrierregime_log(t, T, S, alpha_conf)
 
 # Based on semi-empirical start of constant-head boundary effect
 rinv_consthead = dr.rinv_consthead(t, T, S)

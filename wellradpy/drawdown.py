@@ -6,13 +6,13 @@ Created on 2019/06/26
 """
 
 import numpy as np # version 1.16.2
-from .tools import E1, E1inv, Xinv, Yinv, Zinv
+from .tools import E1, E1inv, Finv, Ginv, Hinv
 
 ###############################################################################
 # Radius of influence functions
 ###############################################################################
 
-def rinfl_absdrawd(t, T, S, Q, sc=0.05):
+def rinfl_absdraw(t, T, S, Q, sc=0.05):
     """
     Calculate radius of influence during drawdown based on an absolute drawdown criterion.
 
@@ -39,12 +39,13 @@ def rinfl_absdrawd(t, T, S, Q, sc=0.05):
     
     """
     
-    C = 2 * np.sqrt(E1inv(4*np.pi*T*sc/Q))
+    sc_star = 4*np.pi*T*sc/Q
+    C = 2 * np.sqrt(E1inv(sc_star))
     return C * np.sqrt(T*t/S)
 
-def rinfl_reldrawd(t, T, S, rw, alpha=0.01):
+def rinfl_reldraw(t, T, S, rw, alpha=0.01):
     """
-    Calculate radius of influence during drawdown based on an relative drawdown criterion.
+    Calculate radius of influence during drawdown based on a relative drawdown criterion.
 
     Parameters
     ----------
@@ -69,12 +70,13 @@ def rinfl_reldrawd(t, T, S, rw, alpha=0.01):
     
     """
     
-    C = 2 * np.sqrt(E1inv(alpha*E1(S*rw**2/(4*T*t))))
+    uw = S*rw**2/(4*T*t)
+    C = 2 * np.sqrt(E1inv(alpha*E1(uw)))
     return C * np.sqrt(T*t/S)
 
 def rinfl_relflow(t, T, S, alpha=0.01):
     """
-    Calculate radius of influence during drawdown based on an relative flow rate criterion.
+    Calculate radius of influence during drawdown based on a relative flow rate criterion.
 
     Parameters
     ----------
@@ -102,7 +104,7 @@ def rinfl_relflow(t, T, S, alpha=0.01):
 
 def rinfl_relvol(t, T, S, alpha=0.01):
     """
-    Calculate radius of influence during drawdown based on an relative volume criterion.
+    Calculate radius of influence during drawdown based on a relative volume criterion.
 
     Parameters
     ----------
@@ -125,7 +127,7 @@ def rinfl_relvol(t, T, S, alpha=0.01):
     
     """
     
-    C = 2 * np.sqrt(Xinv(alpha))
+    C = 2 * np.sqrt(Finv(alpha))
     return C * np.sqrt(T*t/S)
 
 def rinfl_quasisteady(t, T, S):
@@ -258,39 +260,13 @@ def rinfl_log(t, T, S):
     C = 1.5
     return C * np.sqrt(T*t/S)
 
-def rinfl_dim(t, T, S):
-    """
-    Calculate radius of influence during drawdown based on dimensional analysis.
-    
-    Parameters
-    ----------
-    t: float
-        Time from beginning of pumping.
-    T: float
-        Transmissivity.
-    S: float
-        Storativity.
-    
-    Returns
-    -------
-    Radius of influence.
-    
-    Notes
-    -----
-    Units as you wish, but must be consistent for all the parameters.
-    
-    """
-    
-    C = 1
-    return C * np.sqrt(T*t/S)
-
 ###############################################################################
 # Radius of investigation functions
 ###############################################################################
 
-def rinv_absdrawddiff_lin(t, T, S, Q, sc=0.05):
+def rinv_absdrawdiff(t, T, S, Q, sc=0.05):
     """
-    Calculate radius of investigation during drawdown based on absolute drawdown difference criterion when data are analyzed in lin scale.
+    Calculate radius of investigation during drawdown based on an absolute drawdown difference criterion.
     
     Parameters
     ----------
@@ -315,43 +291,13 @@ def rinv_absdrawddiff_lin(t, T, S, Q, sc=0.05):
     
     """
     
-    C = np.sqrt(E1inv(4*np.pi*T*sc/Q))
+    sc_star = 4*np.pi*T*sc/Q
+    C = np.sqrt(E1inv(sc_star))
     return C * np.sqrt(T*t/S)
 
-def rinv_absdrawddiff_log(t, T, S, Q, rw, sc=0.05):
+def rinv_absdrawderivdiff(t, T, S, Q, delta, sc=0.05):
     """
-    Calculate radius of investigation during drawdown based on absolute drawdown difference criterion when data are analyzed in log scale.
-    
-    Parameters
-    ----------
-    t: float
-        Time from beginning of pumping.
-    T: float
-        Transmissivity.
-    S: float
-        Storativity.
-    Q: float
-        Pumping rate.
-    sc: float, optional
-        Absolute drawdown difference threshold.
-    
-    Returns
-    -------
-    Radius of investigation.
-    
-    Notes
-    -----
-    Units as you wish, but must be consistent for all the parameters.
-    
-    """
-    
-    uw = S * rw**2 / (4*T*t)
-    C = np.sqrt(Yinv(4*np.pi*T*sc/Q, uw))
-    return C * np.sqrt(T*t/S)
-
-def rinv_absdrawdderivdiff_lin(t, T, S, Q, delta, sc=0.05):
-    """
-    Calculate radius of investigation during drawdown based on absolute drawdown derivative difference criterion when data are analyzed in lin scale.
+    Calculate radius of investigation during drawdown based on an absolute drawdown derivative difference criterion.
     
     Parameters
     ----------
@@ -364,9 +310,9 @@ def rinv_absdrawdderivdiff_lin(t, T, S, Q, delta, sc=0.05):
     Q: float
         Pumping rate.
     delta: float
-        Window size in derivative calculation (note: restrictions apply; see manuscript for details).
+        Window size used to calculate derivative (note: restrictions apply; see manuscript for details).
     sc: float, optional
-        Absolute drawdown difference threshold.
+        Absolute drawdown derivative difference threshold.
     
     Returns
     -------
@@ -378,12 +324,13 @@ def rinv_absdrawdderivdiff_lin(t, T, S, Q, delta, sc=0.05):
     
     """
     
-    C = np.sqrt(-np.log(4*np.pi*T*np.sqrt(2)*sc/(Q*delta)))
+    sc_star = 4*np.pi*T*sc/Q
+    C = np.sqrt(-np.log(np.sqrt(2)*sc_star/(delta)))
     return C * np.sqrt(T*t/S)
 
-def rinv_absdrawdderivdiff_log(t, T, S, Q, rw, delta, sc=0.05):
+def rinv_reldrawdiff(t, T, S, rw, alpha=0.01):
     """
-    Calculate radius of investigation during drawdown based on absolute drawdown derivative difference criterion when data are analyzed in log scale.
+    Calculate radius of investigation during drawdown based on a relative drawdown difference criterion.
     
     Parameters
     ----------
@@ -393,12 +340,10 @@ def rinv_absdrawdderivdiff_log(t, T, S, Q, rw, delta, sc=0.05):
         Transmissivity.
     S: float
         Storativity.
-    Q: float
-        Pumping rate.
-    delta: float
-        Window size in derivative calculation (note: restrictions apply; see manuscript for details).
-    sc: float, optional
-        Absolute drawdown difference threshold.
+    rw: float
+        Well radius.
+    alpha: float, optional
+        Relative drawdown difference threshold.
     
     Returns
     -------
@@ -410,13 +355,105 @@ def rinv_absdrawdderivdiff_log(t, T, S, Q, rw, delta, sc=0.05):
     
     """
     
-    uw = S * rw**2 / (4*T*t)
-    C = np.sqrt(Zinv(4*np.pi*T*np.sqrt(2)*sc/(Q*delta), uw))
+    uw = S*rw**2/(4*T*t)
+    C = np.sqrt(E1inv(alpha*E1(uw)))
     return C * np.sqrt(T*t/S)
 
-def rinv_reldrawdderivdiff_log(t, T, S, alpha=0.5):
+def rinv_reldrawderivdiff(t, T, S, rw, alpha=0.01):
     """
-    Calculate radius of investigation during drawdown based on relative drawdown derivative difference criterion when data are analyzed in log scale.
+    Calculate radius of investigation during drawdown based on a relative drawdown derivative difference criterion.
+    
+    Parameters
+    ----------
+    t: float
+        Time from beginning of pumping.
+    T: float
+        Transmissivity.
+    S: float
+        Storativity.
+    rw: float
+        Well radius.
+    alpha: float, optional
+        Relative drawdown derivative difference threshold.
+    
+    Returns
+    -------
+    Radius of investigation.
+    
+    Notes
+    -----
+    Units as you wish, but must be consistent for all the parameters.
+    
+    """
+    
+    C = np.sqrt(S*rw**2/(4*T*t) - np.log(alpha))
+    return C * np.sqrt(T*t/S)
+
+def rinv_reldrawave(t, T, S, rw, alpha=0.01):
+    """
+    Calculate radius of investigation during drawdown based on a relative drawdown averaging criterion.
+    
+    Parameters
+    ----------
+    t: float
+        Time from beginning of pumping.
+    T: float
+        Transmissivity.
+    S: float
+        Storativity.
+    rw: float
+        Well radius.
+    alpha: float, optional
+        Relative drawdown averaging threshold.
+    
+    Returns
+    -------
+    Radius of investigation.
+    
+    Notes
+    -----
+    Units as you wish, but must be consistent for all the parameters.
+    
+    """
+    
+    uw = S*rw**2/(4*T*t)
+    C = 2 * np.sqrt(Ginv(alpha, uw))
+    return C * np.sqrt(T*t/S)
+
+def rinv_reldrawderivave(t, T, S, rw, alpha=0.01):
+    """
+    Calculate radius of investigation during drawdown based on a relative drawdown derivative averaging criterion.
+    
+    Parameters
+    ----------
+    t: float
+        Time from beginning of pumping.
+    T: float
+        Transmissivity.
+    S: float
+        Storativity.
+    rw: float
+        Well radius.
+    alpha: float, optional
+        Relative drawdown derivative averaging threshold.
+    
+    Returns
+    -------
+    Radius of investigation.
+    
+    Notes
+    -----
+    Units as you wish, but must be consistent for all the parameters.
+    
+    """
+    
+    uw = S*rw**2/(4*T*t)
+    C = 2 * np.sqrt(Hinv(alpha, uw))
+    return C * np.sqrt(T*t/S)
+
+def rinv_propbarrierregime_lin(t, T, S, alpha=0.5):
+    """
+    Calculate radius of investigation during drawdown based on a proportion of linear barrier regime (linear scale analysis).
     
     Parameters
     ----------
@@ -427,7 +464,35 @@ def rinv_reldrawdderivdiff_log(t, T, S, alpha=0.5):
     S: float
         Storativity.
     alpha: float, optional
-        Confidence level at which the presence of a linear barrier would be detected.
+        Confidence level at which the presence of a linear barrier would be detected using drawdown derivative.
+    
+    Returns
+    -------
+    Radius of investigation.
+    
+    Notes
+    -----
+    Units as you wish, but must be consistent for all the parameters.
+    
+    """
+    
+    C = np.sqrt(-np.log(alpha))
+    return C * np.sqrt(T*t/S)
+
+def rinv_propbarrierregime_log(t, T, S, alpha=0.5):
+    """
+    Calculate radius of investigation during drawdown based on a proportion of linear barrier regime (logarithmic scale analysis).
+    
+    Parameters
+    ----------
+    t: float
+        Time from beginning of pumping.
+    T: float
+        Transmissivity.
+    S: float
+        Storativity.
+    alpha: float, optional
+        Confidence level at which the presence of a linear barrier would be detected using drawdown derivative.
     
     Returns
     -------
