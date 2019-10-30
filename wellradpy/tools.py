@@ -9,7 +9,6 @@ import numpy as np # version 1.16.2
 import scipy.special as spe # version 1.2.1
 import scipy.optimize as opt # version 1.2.1
 import scipy.integrate as integrate # version 1.2.1
-import mpmath as mp
 
 def E1(u):
     """
@@ -93,8 +92,20 @@ def Finv(x):
     sol = opt.root_scalar(func_root_F, args=x, method='bisect', bracket=(1e-12, 1e2), rtol=1e-5)
     return sol.root
 
+def whittaker(z):
+    """
+    Whittaker function for kapa=1/2 and mu=1/2.
+    
+    Parameters
+    ----------
+    z: float
+        Any positive real number.
+    """
+    
+    return np.exp(-0.5*z) * z * spe.hyperu(0.5, 2, z)    
+
 def w_aux(u):
-    res = np.exp(-2*u) * mp.whitw(0.5, 0.5, 4*u)
+    res = np.exp(-2*u) * whittaker(4*u)
     return float(res)
 
 def w(u):
@@ -183,7 +194,7 @@ def wprime(u):
     
     """
     
-    res = np.sqrt(np.pi) * np.exp(-2*u) * mp.whitw(0.5,0.5,4*u)
+    res = np.sqrt(np.pi) * np.exp(-2*u) * whittaker(4*u)
     return float(res)
 
 def H(u, uw):

@@ -72,7 +72,7 @@ rinv_reldrawderivdiff = dr.rinv_reldrawderivdiff(t, T, S, rw, alpha)
 #rinv_reldrawave = dr.rinv_reldrawave(t, T, S, rw, alpha)
 
 # Based on a relative drawdown derivative averaging criterion (RUNTIME ~SECONDS)
-#rinv_reldrawderivave = dr.rinv_reldrawderivave(t, T, S, rw, alpha)
+rinv_reldrawderivave = dr.rinv_reldrawderivave(t, T, S, rw, alpha)
 
 # Based on a proportion of linear barrier regime (linear scale analysis)
 rinv_propbarrierregime_lin = dr.rinv_propbarrierregime_lin(t, T, S, alpha_conf)
