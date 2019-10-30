@@ -6,6 +6,7 @@ Created on 2019/06/26
 """
 
 from wellradpy import drawdown as dr
+import time
 
 ###############################################################################
 # Parameters (not all always needed, depending on the definition)
@@ -68,10 +69,13 @@ rinv_reldrawdiff = dr.rinv_reldrawdiff(t, T, S, rw, alpha)
 # Based on a relative drawdown derivative difference criterion
 rinv_reldrawderivdiff = dr.rinv_reldrawderivdiff(t, T, S, rw, alpha)
 
-# Based on a relative drawdown averaging criterion (RUNTIME ~HOURS)
+# Based on a relative drawdown averaging criterion (RUNTIME ~10 SECONDS)
+#start = time.time()
 #rinv_reldrawave = dr.rinv_reldrawave(t, T, S, rw, alpha)
+#end = time.time()
+#runtime = end - start
 
-# Based on a relative drawdown derivative averaging criterion (RUNTIME ~SECONDS)
+# Based on a relative drawdown derivative averaging criterion
 rinv_reldrawderivave = dr.rinv_reldrawderivave(t, T, S, rw, alpha)
 
 # Based on a proportion of linear barrier regime (linear scale analysis)
