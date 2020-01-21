@@ -1,20 +1,18 @@
 # WellRadPy
 
-WellRadPy (Well Radius Python) is a small Python package for calculating the radius of influence and radius of investigation of wells. These quantities frequently need to be estimated in well hydraulics and aquifer testing.
+WellRadPy (Well Radius Python) is a Python package for calculating the radius of influence and radius of investigation of pumping wells. These quantities frequently need to be estimated in well hydraulics and aquifer testing.
 
-There are various ways by which radius of influence and radius of investigation may be precisely defined. Accordingly, a large number of methods have been proposed for estimating radius of influence and radius of investigation. This package implements most existing methods.
+There are various ways by which radius of influence and radius of investigation may be precisely defined. Accordingly, a large number of methods have been proposed for estimating radius of influence and radius of investigation. This package implements most of them.
 
-The calculations rely on major simplifying assumptions. Specifically: 2D (horizontal) confined flow, infinite domain, homogeneous hydraulic properties, single-porosity media, and fully-penetrating well. Also, only single-phase Newtonian fluids that flow according to Darcy\'s law are considered.
+Most methods are based on the Theis solution to pumping. Thus, the calculations rely on major simplifying assumptions: 2D (horizontal) confined flow, infinite domain, homogeneous hydraulic properties, single-porosity media, and fully-penetrating well.
 
 A paper will (hopefully) soon be published with all the details.
 
 ## Usage
 
-WellRadPy is simple and its use is straightforward. There are just as many functions as there are ways to precisely define radius of influence and radius of investigation.
+WellRadPy is simple and its use is straightforward. The ``/examples`` directory in the [GitHub repository](https://github.com/etiennebresciani/wellradpy) contains a script where all the functions for calculating radius of influence and radius of investigation are exemplified.
 
-The ``/examples`` directory in the [GitHub repository](https://github.com/etiennebresciani/wellradpy) contains a script where all the functions are exemplified.
-
-You can also ``help(whatever_function)`` in the Python console.
+Help can also be obtained by typing ``help(function_path)`` in the Python console.
 
 ## Installation
 

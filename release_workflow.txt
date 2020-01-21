@@ -8,10 +8,13 @@
 # 3. Generate distribution
 --> python setup.py sdist bdist_wheel
 
-# 4. Upload on PyPI repository
+# 4. Get the latest versions of twine
+--> python -m pip install --user --upgrade twine
+
+# 5. Upload the package on PyPI repository
 --> python -m twine upload dist/*VERSION*
 
-# 5. Optionally, create a new release, and also optionally, issue a DOI
+# 6. Optionally, create a new release, and also optionally, issue a DOI
 # Note : details at https://guides.github.com/activities/citable-code/
 --> Create a new release on GitHub (https://github.com/etiennebresciani/wellradpy/releases/).
 --> Note this will trigger Zenodo (web site for creating DOI) into archiving the repository.
