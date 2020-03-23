@@ -12,10 +12,10 @@ import time
 # Parameters (not all always needed, depending on the definition)
 ###############################################################################
 
-t = 1 # Time from beginning of pumping
-T = 10 # Transmissivity
-S = 1e-4 # Storativity
-Q = 30 # Pumping rate
+t = 1. # Time from beginning of pumping
+T = 10. # Transmissivity
+S = 1.e-4 # Storativity
+Q = 30. # Pumping rate
 rw = 0.15 # Well radius
 sc = 0.05 # Absolute drawdown threshold criterion
 alpha = 0.01 # Relative threshold criterion

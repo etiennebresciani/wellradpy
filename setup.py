@@ -12,9 +12,10 @@ with open("README.md", "r", encoding="ISO-8859-1") as fh:
 
 setuptools.setup(
     name="wellradpy",
-    version="1.0.1",
+    version="2.0",
     author="Etienne Bresciani",
-    description="A Python package to calculate the radius of influence and radius of investigation of pumping wells.",
+    description="A Python package to calculate the radius of influence and " \
+        "radius of investigation of pumping wells.",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/etiennebresciani/wellradpy",
