@@ -19,8 +19,9 @@ influence and radius of investigation: What exactly are they and how to
 estimate them? Journal of Hydrology, 583: 124646.
 https://doi.org/10.1016/j.jhydrol.2020.124646.
 
-* A paper focusing on radius of investigation during recovery is currently
-under review.
+* Bresciani, E., Shandilya, R.N., Kang, P.K., Lee, S., 2020. Evolution of the
+radius of investigation during recovery tests. Journal of Hydrology,
+590: 125346. https://doi.org/10.1016/j.jhydrol.2020.125346.
 
 ## Usage
 

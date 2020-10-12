@@ -17,5 +17,5 @@
 # 6. Optionally, create a new release, and also optionally, issue a DOI
 # Note : details at https://guides.github.com/activities/citable-code/
 --> Create a new release on GitHub (https://github.com/etiennebresciani/wellradpy/releases/).
---> Note this will trigger Zenodo (web site for creating DOI) into archiving the repository.
---> To issue a DOI, go to https://zenodo.org/, click 'Upload', and follow the instructions.
+--> Note this will trigger Zenodo to archive the release and create a DOI.
+--> To see it: https://zenodo.org/ and click 'Upload'.
